@@ -98,6 +98,11 @@
             </x-slot>
 
             <x-slot name="content">
+              <!-- theme -->
+              <div class="inline-flex align-middle px-4 py-2 text-xs">
+                <x-menus.theme />
+                <span class= "mt-2 text-gray-800 dark:text-gray-200">{{ __('Theme') }}</span>
+              </div>
               <!-- Account Management -->
               <div class="block px-4 py-2 text-xs text-gray-400">
                 {{ __('Manage Account') }}
