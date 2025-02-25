@@ -1,5 +1,4 @@
-<!-- resources/views/components/layouts/app-layout.blade.php -->
-
+{{-- resource/views/layouts/admin.blade.php --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -8,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel 11') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,39 +18,22 @@
 
     <!-- Styles -->
     @livewireStyles
+    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
   </head>
 
-  <body class="font-sans antialiased">
-    <x-banner />
+  <body class="font-sans antialiased dark">
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
       @livewire('navigation-menu')
-
-      <!-- Page Heading -->
-      @if (isset($header))
-        <header class="bg-white dark:bg-gray-800 shadow">
-          <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-            {{ $header }}
-          </div>
-        </header>
-      @endif
 
       <!-- Page Content -->
       <main>
         {{ $slot }}
       </main>
-
-      <!-- Page Footer -->
-      @if (isset($footer))
-        <footer class="bg-white dark:bg-gray-800 shadow">
-          <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-            {{ $footer }}
-          </div>
-        </footer>
-      @endif
     </div>
 
     @stack('modals')
+
     @livewireScripts
   </body>
 
