@@ -3,12 +3,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\User;
+use App\Models\User as Data;
 use Livewire\Component;
 
 class UserManager extends Component
 {
-    public $users, $name, $email, $password, $is_active, $user_id;
+    public $datas, $name, $email, $password, $is_active, $user_id;
     public $isOpen = 0;
     public $crud;
     public $campos;
@@ -22,7 +22,7 @@ class UserManager extends Component
 
     public function render()
     {
-        $this->users = User::all();
+        $this->datas = Data::all();
         return view('livewire.admin.user-manager', ['campos' => $this->campos, 'crud' => $this->crud]);
     }
 
@@ -64,7 +64,7 @@ class UserManager extends Component
             'is_active' => 'boolean',
         ]);
 
-        User::updateOrCreate(['id' => $this->user_id], [
+        Data::updateOrCreate(['id' => $this->user_id], [
             'name' => $this->name,
             'email' => $this->email,
             'password' => bcrypt($this->password),
@@ -83,7 +83,7 @@ class UserManager extends Component
     public function edit($id)
     {
         $this->crud = "Update";
-        $user = User::findOrFail($id);
+        $user = Data::findOrFail($id);
         foreach ($this->campos as $field => $config) {
             if ($config['visible2']) {
                 $this->{$field} = $user->{$field};
@@ -97,7 +97,7 @@ class UserManager extends Component
     {
         $this->crud = "Delete";
 
-        $user = User::findOrFail($id);
+        $user = Data::findOrFail($id);
         foreach ($this->campos as $field => $config) {
             if ($config['visible2']) {
                 $this->{$field} = $user->{$field};
@@ -109,7 +109,7 @@ class UserManager extends Component
 
     public function deleting($id)
     {
-        User::find($id)->delete();
+        Data::find($id)->delete();
         session()->flash('message', 'User Deleted Successfully.');
     }
 }

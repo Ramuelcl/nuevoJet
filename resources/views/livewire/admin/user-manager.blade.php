@@ -14,6 +14,7 @@
   @endif
 
   <button wire:click="create()">{{ __('New') }}</button>
+  <x-forms.tw_button wire:click="create()" class="text-white">{{ __('New') }}</x-forms.tw_button>
   {{-- @php
     dump($campos);
   @endphp --}}
@@ -25,18 +26,47 @@
           @foreach ($campos as $field => $config)
             @if ($config['visible2'])
               <label>{{ $config['titulo2'] }}:</label>
-              @if ($field == 'id')
-                <input type="text" value="{{ $user_id }}" disabled>
-              @else
-                <input type="{{ $config['tipo'] }}" wire:model="{{ $field }}"
-                       {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}>
-              @endif
+              @switch($config['tipo'])
+                @case('integer')
+                @case('decimal')
+                  <input type="text" wire:model="{{ $field }}"
+                         {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}
+                         value="{{ $crud === 'Create' ? '' : $this->{$field} }}">
+                @break
+
+                @case('date')
+                  <input type="date" wire:model="{{ $field }}"
+                         {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}
+                         value="{{ $crud === 'Create' ? '' : date('Y-m-d', strtotime($this->{$field})) }}">
+                @break
+
+                @case('checkbox')
+                  <input type="checkbox" wire:model="{{ $field }}"
+                         {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}
+                         {{ $this->{$field} ? 'checked' : '' }}>
+                @break
+
+                @case('image')
+                  <input type="file" wire:model="{{ $field }}"
+                         {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}>
+                  @if ($crud !== 'Create' && $this->{$field})
+                    <img src="{{ asset('storage/' . $this->{$field}) }}" alt="Foto" class="mt-2 w-10 h-10">
+                  @endif
+                @break
+
+                @default
+                  <input type="text" wire:model="{{ $field }}"
+                         {{ isset($config['disabled']) && $config['disabled'] ? 'disabled' : '' }}
+                         value="{{ $crud === 'Create' ? '' : $this->{$field} }}">
+              @endswitch
             @endif
           @endforeach
         </fieldset>
+        <x-forms.tw_button wire:click="{{ $crud == 'Delete' ? 'deleting(' . $user_id . ')' : 'store()' }}"
+                           class="text-white">{{ $crud == 'Delete' ? __('Delete') : ($crud == 'Create' ? __('Save') : __('Update')) }}</x-forms.tw_button>
 
-        <button type="button" wire:click="{{ $crud == 'Delete' ? 'deleting()' : 'store()' }}">
-          {{ $crud == 'Delete' ? __('Delete') : ($crud == 'Create' ? __('Save') : __('Update')) }}
+        <button type="button" wire:click="{{ $crud == 'Delete' ? 'deleting(' . $user_id . ')' : 'store()' }}">
+          {{ $crud == 'Delete' ? __('Delete') : ($crud == 'Create' ? __('Save') : __('Update')) }}color="red"
         </button>
 
         <button type="button" wire:click="closeModal()">{{ __('Cancel') }}</button>
@@ -53,7 +83,15 @@
       </tr>
     </thead>
     <tbody>
-      @include('includes.campos')
+      @foreach ($datas as $data)
+        <tr>
+          @include('includes.campos', ['data' => $data])
+          <td class="px-4 py-1 text-gray-900 dark:text-white text-center">
+            <button wire:click="edit({{ $data->id }})">{{ __('Edit') }}</button>
+            <button wire:click="delete({{ $data->id }})">{{ __('Delete') }}</button>
+          </td>
+        </tr>
+      @endforeach
     </tbody>
   </table>
 </div>
