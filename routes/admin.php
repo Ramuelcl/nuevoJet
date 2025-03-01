@@ -1,10 +1,15 @@
 <?php
 // routes/admin.php
+
+// actualisado en el archivo: bootstrap/app.php
+// ->prefix('admin')
+// ->name('admin.') por lo tanto no debo incluirlo aquí
+//
 use App\Livewire\Admin\UserManager;
 use Illuminate\Support\Facades\Route;
 
 // Ruta para el dashboard de administración
-Route::get('/dashboard', function () {
+Route::get('/', function () {
   return view('admin.dashboard');
 })->name('dashboard');
 

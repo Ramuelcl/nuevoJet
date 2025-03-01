@@ -63,11 +63,8 @@
           @endforeach
         </fieldset>
         <x-forms.tw_button wire:click="{{ $crud == 'Delete' ? 'deleting(' . $user_id . ')' : 'store()' }}"
+                           color="red"
                            class="text-white">{{ $crud == 'Delete' ? __('Delete') : ($crud == 'Create' ? __('Save') : __('Update')) }}</x-forms.tw_button>
-
-        <button type="button" wire:click="{{ $crud == 'Delete' ? 'deleting(' . $user_id . ')' : 'store()' }}">
-          {{ $crud == 'Delete' ? __('Delete') : ($crud == 'Create' ? __('Save') : __('Update')) }}color="red"
-        </button>
 
         <button type="button" wire:click="closeModal()">{{ __('Cancel') }}</button>
       </form>
