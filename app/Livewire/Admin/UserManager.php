@@ -23,7 +23,7 @@ class UserManager extends Component
     public function render()
     {
         $this->datas = Data::all();
-        return view('livewire.admin.user-manager', ['campos' => $this->campos, 'crud' => $this->crud]);
+        return View('livewire.admin.user-manager', ['campos' => $this->campos, 'crud' => $this->crud]);
     }
 
     public function create()

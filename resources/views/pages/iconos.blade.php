@@ -18,7 +18,7 @@
     }
   @endphp
 
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap my-20">
     @foreach ($svgIcons as $svgIcon)
       <div class="p-4 m-2 rounded-lg border-2 border-blue-400 text-center">
         <x-forms.tw_icons class="" name="{{ $svgIcon }}" />{{ $svgIcon }}

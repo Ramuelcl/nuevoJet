@@ -1,6 +1,7 @@
 <?php
 
 // config/guzanet.php
+// "clave" => "valor",
 return [
   "sistema" => [
     ["banca" => 1],
@@ -10,7 +11,6 @@ return [
     ["inventario" => 5],
     ["remuneraciones" => 7],
   ],
-  "clave" => "valor",
   "appEmpresa" => "Guzanet",
   "appLogo" => "images/Guzanet.png", //public\app\logo
 
