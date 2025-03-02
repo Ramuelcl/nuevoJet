@@ -25,7 +25,13 @@ class Settings extends Component
     public function mount()
     {
         // Cargar la configuración actual desde la base de datos o un archivo
-        $this->settings = config('guzanet');
+        $this->settings['sistema'] = config('guzanet', 'sistema');
+        $this->settings['appEmpresa'] = config('guzanet','appEmpresa');
+        $this->settings['appLogo'] = config('guzanet','appLogo');
+        $this->settings['appNombre'] = config('guzanet','appNombre');
+        $this->settings['appMail'] = config('guzanet','appMail');
+        $this->settings['appLargoClave'] = config('guzanet','appLargoClave');
+ 
     }
 
     public function save()
