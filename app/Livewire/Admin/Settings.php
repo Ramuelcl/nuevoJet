@@ -35,7 +35,7 @@ class Settings extends Component
         // Guardar la configuración en la base de datos o un archivo
         // Por ejemplo, si estás usando un modelo de configuración
         foreach ($this->settings as $key => $value) {
-            config('guzanet.' . $key, $value);
+            config("guzanet.$key, $value");
             // Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
 

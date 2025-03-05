@@ -1,21 +1,25 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Livewire\GuzanetDashboard;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', GuzanetDashboard::class)->name('dashboard');
+
+    // Rutas de perfil y configuración (placeholders)
+    Route::get('/profile', function () {
+        return view('profile.show');
+    })->name('profile.show');
+
+    Route::get('/profile/settings', function () {
+        return view('profile.settings');
+    })->name('profile.settings');
+});
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'welcome')->name('inicio'); // Blade

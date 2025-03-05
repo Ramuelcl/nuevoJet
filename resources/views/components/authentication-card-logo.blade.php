@@ -20,5 +20,8 @@
 @endphp
 
 <a href="{{ $url }}">
-  <img src="{{ asset($img) }}" alt="Logo" style="width: {{ $defaultSize }}px; height: {{ $defaultSize }}px;">
+  <div class="flex items-center justify-center font-bold text-2xl text-blue-900">
+    <img src="{{ asset($img) }}" alt="Logo" style="width: {{ $defaultSize }}px; height: {{ $defaultSize }}px;">
+    {{ config('guzanet.appEmpresa') }}
+  </div>
 </a>

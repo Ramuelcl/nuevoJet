@@ -1,3 +1,4 @@
+{{-- resources/views/components/menus/navigation-menu.blade.php --}}
 @props(['title' => 'Dashboard'])
 <nav x-data="{ open: false }"
      class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -29,6 +30,33 @@
       </div>
 
       <div class="hidden sm:flex sm:items-center sm:ms-6">
+        {{-- Search --}}
+        {{-- <div class="rounded-md py-0 w-22 border-gray-300 border-2 relative">
+          <button type="button" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <x-forms.tw_icons name="search" class="w-5 h-5" />
+          </button>
+          <input type="text" class="block w-full pl-10 pr-3 py-1 border-0 focus:ring-0 focus:border-0"
+                 placeholder="Search..." />
+        </div> --}}
+        <livewire:forms.search />
+
+        {{-- theme --}}
+        <div x-data="{ themeMenuOpen: false }" class="relative">
+          <button @click="themeMenuOpen = !themeMenuOpen" class="focus:outline-none">
+            <x-forms.tw_icons name="sun" class="ml-4" />
+          </button>
+          <div x-show="themeMenuOpen" @click.outside="themeMenuOpen = false"
+               class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-xl z-50">
+            <ul>
+              @foreach (['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight'] as $themeOption)
+                <li @click="theme = '{{ $themeOption }}'; themeMenuOpen = false;"
+                    class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                  {{ ucfirst($themeOption) }}
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
         <!-- Teams Dropdown -->
         @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
           <div class="ms-3 relative">
